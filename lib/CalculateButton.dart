@@ -4,27 +4,16 @@ import 'package:huffmancalculator/InputTextField.dart';
 import 'package:huffmancalculator/Node.dart';
 import 'package:huffmancalculator/Theme.dart';
 
+Node makeNode(String character, int frequency) {
+  return new Node(character, frequency);
+}
+
 String calculateHuffmanCode(String text) {
   HuffmanTree ht = new HuffmanTree();
-  ht.insert("A", 5);
-  ht.insert("B", 2);
-  ht.insert("C", 3);
-  List list = ht.getListOfNodes();
-  String res = "";
-  for (Node tmp in list) {
-    res += tmp.character + "," + tmp.frequency.toString() + "\n";
-  }
-  res += "\n";
-  Node tmp = ht.extractMin();
-  res += tmp.character + "," + tmp.frequency.toString();
-  res += "\n";
-  tmp = ht.extractMin();
-  res += tmp.character + "," + tmp.frequency.toString();
-  res += "\n\n";
-  for (Node tmp in list) {
-    res += tmp.character + "," + tmp.frequency.toString() + "\n";
-  }
-  return res;
+  ht.insertNode(makeNode("A", 5));
+  ht.insertNode(makeNode("B", 2));
+  ht.insertNode(makeNode("C", 3));
+  return ht.printTree();
 }
 
 class CalculateButton extends StatelessWidget {

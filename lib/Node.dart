@@ -1,47 +1,47 @@
 class Node {
-  String character;
-  int frequency;
-  Node left, right;
+  String _character;
+  int _frequency;
+  Node _left, _right;
 
   Node(String character, int frequency) {
-    this.character = character;
-    this.frequency = frequency;
-    left = right = null;
+    this._character = character;
+    this._frequency = frequency;
+    _left = _right = null;
   }
 
   void setCharacter(String character) {
-    this.character = character;
+    _character = character;
   }
 
   void setFrequency(int frequency) {
-    this.frequency = frequency;
+    _frequency = frequency;
   }
 
   void setLeft(Node left) {
-    this.left = left;
+    _left = left;
   }
 
   void setRight(Node right) {
-    this.right = right;
+    _right = right;
   }
 
   String getCharacter() {
-    return character;
+    return _character;
   }
 
   int getFrequency() {
-    return frequency;
+    return _frequency;
   }
 
   Node getLeft() {
-    return left;
+    return _left;
   }
 
   Node getRight() {
-    return right;
+    return _right;
   }
 
   bool isLeaf() {
-    return (left == null && right == null);
+    return (_left == null && _right == null);
   }
 }
