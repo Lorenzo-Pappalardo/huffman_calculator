@@ -14,6 +14,16 @@ String calculateHuffmanCode(String text) {
   for (Node tmp in list) {
     res += tmp.character + "," + tmp.frequency.toString() + "\n";
   }
+  res += "\n";
+  Node tmp = ht.extractMin();
+  res += tmp.character + "," + tmp.frequency.toString();
+  res += "\n";
+  tmp = ht.extractMin();
+  res += tmp.character + "," + tmp.frequency.toString();
+  res += "\n\n";
+  for (Node tmp in list) {
+    res += tmp.character + "," + tmp.frequency.toString() + "\n";
+  }
   return res;
 }
 

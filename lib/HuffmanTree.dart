@@ -14,6 +14,10 @@ class HuffmanTree {
     nodes.sort((a, b) => a.frequency.compareTo(b.frequency));
   }
 
+  Node extractMin() {
+    return nodes.removeAt(0);
+  }
+
   List getListOfNodes() {
     return nodes;
   }
