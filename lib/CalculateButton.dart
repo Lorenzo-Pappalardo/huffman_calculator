@@ -13,7 +13,9 @@ String calculateHuffmanCode(String text) {
   ht.insertNode(makeNode("A", 5));
   ht.insertNode(makeNode("B", 2));
   ht.insertNode(makeNode("C", 3));
-  return ht.printTree();
+  String res = ht.printTree();
+  res += ht.printCodes();
+  return res;
 }
 
 class CalculateButton extends StatelessWidget {

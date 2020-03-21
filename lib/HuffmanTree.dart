@@ -1,16 +1,18 @@
 import 'package:huffmancalculator/Node.dart';
+import 'package:huffmancalculator/Pair.dart';
 
 class HuffmanTree {
-  Map<String, String> map;
-  List nodes;
+  List _pairs;
+  List _nodes;
+  Node root;
   String res;
 
   Node _extractMin() {
-    return nodes.removeAt(0);
+    return _nodes.removeAt(0);
   }
 
-  Node _buildTree() {
-    for (int i = 0; i < nodes.length; i++) {
+  void _buildTree() {
+    for (int i = 0; i < _nodes.length; i++) {
       Node left = _extractMin();
       Node right = _extractMin();
       Node sum = new Node('\0', left.getFrequency() + right.getFrequency());
@@ -18,32 +20,64 @@ class HuffmanTree {
       sum.setRight(right);
       insertNode(sum);
     }
-    return _extractMin();
+    root = _extractMin();
   }
 
-  HuffmanTree() {
-    map = new Map<String, String>();
-    nodes = new List<Node>();
-    res = "";
-  }
-
-  void insertNode(Node newNode) {
-    nodes.add(newNode);
-    nodes.sort((a, b) => a.getFrequency().compareTo(b.getFrequency()));
-  }
-
-  void _printTree(Node tmp) {
-    if (tmp != null) {
-      _printTree(tmp.getLeft());
-      res += tmp.getCharacter() + "," + tmp.getFrequency().toString() + " ";
-      _printTree(tmp.getRight());
+  void _buildCodesRecursively(Node tmpNode, String code) {
+    if (tmpNode != null) {
+      if (tmpNode.isLeaf() == true) {
+        for (Pair tmpPair in _pairs) {
+          if (tmpNode.getCharacter() == tmpPair.getCharacter()) {
+            tmpPair.setCode(code);
+          }
+        }
+      }
+      _buildCodesRecursively(tmpNode.getLeft(), code + '0');
+      _buildCodesRecursively(tmpNode.getRight(), code + '1');
     }
   }
 
+  HuffmanTree() {
+    _pairs = new List<Pair>();
+    _nodes = new List<Node>();
+    root = null;
+    res = '';
+  }
+
+  void insertPair(Node newNode) {
+    Pair tmp = new Pair();
+    tmp.setCharacter(newNode.getCharacter());
+    _pairs.add(tmp);
+  }
+
+  void insertNode(Node newNode) {
+    _nodes.add(newNode);
+    insertPair(newNode);
+    _nodes.sort((a, b) => a.getFrequency().compareTo(b.getFrequency()));
+  }
+
+  String _printTree(Node tmp) {
+    if (tmp != null) {
+      _printTree(tmp.getLeft());
+      res += tmp.getCharacter() + ',' + tmp.getFrequency().toString() + ' ';
+      _printTree(tmp.getRight());
+    }
+    return res;
+  }
+
   String printTree() {
-    Node root = _buildTree();
-    _printTree(root);
-    if (res == "") res = "No input provided!";
+    _buildTree();
+    return _printTree(root);
+  }
+
+  String printCodes() {
+    res = '\n';
+    _buildCodesRecursively(root, '');
+    for (Pair tmp in _pairs) {
+      if (tmp.getCharacter() != '\0') {
+        res += tmp.getCharacter() + ',' + tmp.getCode() + ' ';
+      }
+    }
     return res;
   }
 }
