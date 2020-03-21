@@ -4,23 +4,48 @@ import 'package:huffmancalculator/Pair.dart';
 class HuffmanTree {
   List _pairs;
   List _nodes;
-  Node root;
-  String res;
+  int _nodesNum;
+  Node _root;
+  String _res;
+
+  Node _isPresent(String character) {
+    for (Node tmp in _nodes) {
+      if (tmp.getCharacter() == character) {
+        return tmp;
+      }
+    }
+    return null;
+  }
+
+  void _sortNodes() {
+    _nodes.sort((a, b) => a.getFrequency().compareTo(b.getFrequency()));
+  }
+
+  Node _makeNode(String character, int frequency) {
+    return new Node(character, frequency);
+  }
+
+  void _insertPair(Node newNode) {
+    Pair tmp = new Pair();
+    tmp.setCharacter(newNode.getCharacter());
+    _pairs.add(tmp);
+  }
 
   Node _extractMin() {
+    _sortNodes();
     return _nodes.removeAt(0);
   }
 
   void _buildTree() {
-    for (int i = 0; i < _nodes.length; i++) {
+    for (int i = 0; i < _nodesNum - 1; i++) {
       Node left = _extractMin();
       Node right = _extractMin();
-      Node sum = new Node('\0', left.getFrequency() + right.getFrequency());
+      Node sum = _makeNode('\0', left.getFrequency() + right.getFrequency());
       sum.setLeft(left);
       sum.setRight(right);
-      insertNode(sum);
+      _nodes.add(sum);
     }
-    root = _extractMin();
+    _root = _extractMin();
   }
 
   void _buildCodesRecursively(Node tmpNode, String code) {
@@ -40,44 +65,48 @@ class HuffmanTree {
   HuffmanTree() {
     _pairs = new List<Pair>();
     _nodes = new List<Node>();
-    root = null;
-    res = '';
+    _nodesNum = 0;
+    _root = null;
+    _res = '';
   }
 
-  void insertPair(Node newNode) {
-    Pair tmp = new Pair();
-    tmp.setCharacter(newNode.getCharacter());
-    _pairs.add(tmp);
-  }
-
-  void insertNode(Node newNode) {
-    _nodes.add(newNode);
-    insertPair(newNode);
-    _nodes.sort((a, b) => a.getFrequency().compareTo(b.getFrequency()));
+  void insertNode(String character, int frequency) {
+    Node tmp = _isPresent(character);
+    if (tmp != null) {
+      tmp.updateFrequency();
+      _sortNodes();
+    }
+    else {
+      Node newNode = _makeNode(character, frequency);
+      _nodes.add(newNode);
+      _insertPair(newNode);
+      _sortNodes();
+      _nodesNum++;
+    }
   }
 
   String _printTree(Node tmp) {
     if (tmp != null) {
       _printTree(tmp.getLeft());
-      res += tmp.getCharacter() + ',' + tmp.getFrequency().toString() + ' ';
+      _res += tmp.getCharacter() + ',' + tmp.getFrequency().toString() + ' ';
       _printTree(tmp.getRight());
     }
-    return res;
+    return _res;
   }
 
   String printTree() {
     _buildTree();
-    return _printTree(root);
+    return _printTree(_root);
   }
 
   String printCodes() {
-    res = '\n';
-    _buildCodesRecursively(root, '');
+    _res = '\n';
+    _buildCodesRecursively(_root, '');
     for (Pair tmp in _pairs) {
       if (tmp.getCharacter() != '\0') {
-        res += tmp.getCharacter() + ',' + tmp.getCode() + ' ';
+        _res += tmp.getCharacter() + ',' + tmp.getCode() + ' ';
       }
     }
-    return res;
+    return _res;
   }
 }

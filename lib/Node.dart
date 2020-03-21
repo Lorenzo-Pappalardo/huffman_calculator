@@ -17,6 +17,10 @@ class Node {
     _frequency = frequency;
   }
 
+  void updateFrequency() {
+    _frequency++;
+  }
+
   void setLeft(Node left) {
     _left = left;
   }

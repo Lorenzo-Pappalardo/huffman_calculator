@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:huffmancalculator/HuffmanTree.dart';
 import 'package:huffmancalculator/InputTextField.dart';
-import 'package:huffmancalculator/Node.dart';
 import 'package:huffmancalculator/Theme.dart';
-
-Node makeNode(String character, int frequency) {
-  return new Node(character, frequency);
-}
 
 String calculateHuffmanCode(String text) {
   HuffmanTree ht = new HuffmanTree();
-  ht.insertNode(makeNode("A", 5));
-  ht.insertNode(makeNode("B", 2));
-  ht.insertNode(makeNode("C", 3));
-  String res = ht.printTree();
-  res += ht.printCodes();
-  return res;
+  if (text != null && text.length > 1) {
+    for (int i = 0; i < text.length; i++) {
+      ht.insertNode(text[i], 1);
+    }
+    String res = ht.printTree();
+    res += ht.printCodes();
+    return res;
+  }
+  return "There's nothing to calculate, move along!";
 }
 
 class CalculateButton extends StatelessWidget {
