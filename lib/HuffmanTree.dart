@@ -85,26 +85,30 @@ class HuffmanTree {
     }
   }
 
-  String _printTree(Node tmp) {
-    if (tmp != null) {
-      _printTree(tmp.getLeft());
-      _res += tmp.getCharacter() + ',' + tmp.getFrequency().toString() + ' ';
-      _printTree(tmp.getRight());
+  void generateCodesAndText() {
+    _buildTree();
+    _buildCodesRecursively(_root, '');
+  }
+
+  String getCodedText(String inputText) {
+    _res = '';
+    for (int i = 0; i < inputText.length; i++) {
+      for (Pair tmp in _pairs) {
+        if (inputText[i] == tmp.getCharacter()) {
+          _res += tmp.getCode();
+        }
+      }
     }
     return _res;
   }
 
-  String printTree() {
-    _buildTree();
-    return _printTree(_root);
-  }
-
-  String printCodes() {
-    _res = '\n';
-    _buildCodesRecursively(_root, '');
+  String getCodesForEachCharacter() {
+    _res = '';
     for (Pair tmp in _pairs) {
       if (tmp.getCharacter() != '\0') {
-        _res += tmp.getCharacter() + ',' + tmp.getCode() + ' ';
+        _res += tmp.getCharacter() + ":   " + tmp.getCode();
+        if (tmp != _pairs.last)
+          _res += '\n';
       }
     }
     return _res;
