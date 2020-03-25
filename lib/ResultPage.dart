@@ -10,7 +10,7 @@ String _toEncode;
 void calculateHuffmanCode() {
   ht = new HuffmanTree();
   _toEncode = InputTextField.inputText;
-  if (_toEncode.length < 2)
+  if (_toEncode == null || _toEncode.length < 2)
     _toEncode =
         "Provide a text longer than 1 character, otherwise it's too easy ;)";
   for (int i = 0; i < _toEncode.length; i++) {
@@ -42,6 +42,10 @@ class ResultPage extends StatelessWidget {
           ),
           onPressed: () => Navigator.pop(context),
         ),
+        title: Text(
+          "Result", style: TextStyle(color: getThemeData().accentColor),
+        ),
+        centerTitle: true,
       ),
       body: Builder(
         builder: (context) => Column(
