@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:huffmancalculator/AppBar.dart';
-import 'package:huffmancalculator/CalculateButton.dart';
 import 'package:huffmancalculator/InputTextField.dart';
 import 'package:huffmancalculator/Theme.dart';
-import 'package:huffmancalculator/main.dart';
 
 class EncodePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: getThemeData().backgroundColor,
-      appBar: getAppBar(),
-      floatingActionButton: CalculateButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      body: Column(
+    return Center(
+      child: Column(
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
@@ -22,10 +15,15 @@ class EncodePage extends StatelessWidget {
               style: TextStyle(color: getThemeData().accentColor),
             ),
           ),
-          InputTextField(),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 8.0, left: 8.0, right: 8.0, bottom: 35.0),
+              child: InputTextField(),
+            ),
+          )
         ],
       ),
-      bottomNavigationBar: bottomNavigationBar(),
     );
   }
 }

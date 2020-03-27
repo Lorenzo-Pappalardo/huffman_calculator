@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:huffmancalculator/AppBar.dart';
+import 'package:huffmancalculator/CalculateButton.dart';
 import 'package:huffmancalculator/DecodePage.dart';
 import 'package:huffmancalculator/EncodePage.dart';
 import 'package:huffmancalculator/ResultPage.dart';
@@ -11,49 +13,62 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  static int _pageIndex = 0;
+  int _pageIndex = 0;
 
-  static Widget _currentPage = EncodePage();
+  Widget _currentPage = EncodePage();
+
+  void switchPage(int index) {
+    if (index != _pageIndex) {
+      setState(() {
+        _pageIndex = index;
+        if (_pageIndex == 0)
+          _currentPage = EncodePage();
+        else
+          _currentPage = DecodePage();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: getThemeData(),
-      home: _currentPage,
+      home: Scaffold(
+        backgroundColor: getThemeData().backgroundColor,
+        appBar: getAppBar(),
+        floatingActionButton: CalculateButton(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        body: _currentPage,
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: getThemeData().primaryColor,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.translate,
+                color: getThemeData().accentColor,
+              ),
+              title: Text(
+                "Encode",
+                style: TextStyle(color: getThemeData().accentColor),
+              ),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.restore,
+                color: getThemeData().accentColor,
+              ),
+              title: Text(
+                "Decode",
+                style: TextStyle(color: getThemeData().accentColor),
+              ),
+            ),
+          ],
+          currentIndex: _pageIndex,
+          onTap: (int i) => switchPage(i),
+        ),
+      ),
       routes: <String, WidgetBuilder>{
-        '/decodepage': (BuildContext context) => DecodePage(),
         '/resultPage': (BuildContext context) => ResultPage(),
       },
     );
   }
-}
-
-Widget bottomNavigationBar() {
-  return BottomNavigationBar(
-    backgroundColor: getThemeData().primaryColor,
-    items: <BottomNavigationBarItem>[
-      BottomNavigationBarItem(
-        icon: Icon(
-          Icons.translate,
-          color: getThemeData().accentColor,
-        ),
-        title: Text(
-          "Calculate",
-          style: TextStyle(color: getThemeData().accentColor),
-        ),
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(
-          Icons.restore,
-          color: getThemeData().accentColor,
-        ),
-        title: Text(
-          "Restore",
-          style: TextStyle(color: getThemeData().accentColor),
-        ),
-      )
-    ],
-    currentIndex: 0,
-    onTap: (int i) => null,
-  );
 }
