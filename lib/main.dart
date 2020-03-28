@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:huffmancalculator/AppBar.dart';
 import 'package:huffmancalculator/CalculateButton.dart';
 import 'package:huffmancalculator/DecodePage.dart';
+import 'package:huffmancalculator/DecodingResultPage.dart';
 import 'package:huffmancalculator/EncodePage.dart';
-import 'package:huffmancalculator/ResultPage.dart';
+import 'package:huffmancalculator/EncodingResultPage.dart';
 import 'package:huffmancalculator/Theme.dart';
 
 void main() => runApp(MyApp());
@@ -35,7 +36,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         backgroundColor: getThemeData().backgroundColor,
         appBar: getAppBar(),
-        floatingActionButton: CalculateButton(),
+        floatingActionButton: CalculateButton(_pageIndex),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: _currentPage,
         bottomNavigationBar: BottomNavigationBar(
@@ -67,7 +68,11 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       routes: <String, WidgetBuilder>{
-        '/resultPage': (BuildContext context) => ResultPage(),
+        '/encodingResultPage': (BuildContext context) =>
+            EncodingResultPage(itf: EncodePage.itf),
+        '/decodingResultPage': (BuildContext context) =>
+            DecodingResultPage(
+                ct: DecodePage.codedText, cc: DecodePage.charactersCodes),
       },
     );
   }

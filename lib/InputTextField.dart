@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:huffmancalculator/Theme.dart';
 
 class InputTextField extends StatelessWidget {
-  static String inputText;
+  String _inputText;
+
+  String getInputText() {
+    return _inputText;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +17,7 @@ class InputTextField extends StatelessWidget {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
       ),
       onChanged: (String inserted) {
-        inputText = inserted;
+        _inputText = inserted;
       },
     );
   }

@@ -7,10 +7,10 @@ import 'package:huffmancalculator/Theme.dart';
 HuffmanTree ht;
 String _toEncode;
 
-void calculateHuffmanCode() {
+void calculateHuffmanCode(InputTextField itf) {
   ht = new HuffmanTree();
-  _toEncode = InputTextField.inputText;
-  if (_toEncode == null || _toEncode.length < 2)
+  _toEncode = itf.getInputText();
+  if (_toEncode.length < 2)
     _toEncode =
         "Provide a text longer than 1 character, otherwise it's too easy ;)";
   for (int i = 0; i < _toEncode.length; i++) {
@@ -27,10 +27,14 @@ String getCharactersCodes() {
   return ht.getCodesForEachCharacter();
 }
 
-class ResultPage extends StatelessWidget {
+class EncodingResultPage extends StatelessWidget {
+  final InputTextField itf;
+
+  EncodingResultPage({@required this.itf});
+
   @override
   Widget build(BuildContext context) {
-    calculateHuffmanCode();
+    calculateHuffmanCode(itf);
     return Scaffold(
       backgroundColor: getThemeData().backgroundColor,
       appBar: AppBar(
@@ -43,7 +47,8 @@ class ResultPage extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          "Result", style: TextStyle(color: getThemeData().accentColor),
+          "Result",
+          style: TextStyle(color: getThemeData().accentColor),
         ),
         centerTitle: true,
       ),
@@ -79,7 +84,7 @@ class ResultPage extends StatelessWidget {
                 ),
                 FlatButton(
                   child: Text(
-                    "Show character codes",
+                    "Show characters' codes",
                     style: TextStyle(color: getThemeData().accentColor),
                   ),
                   onPressed: () => Scaffold.of(context).showSnackBar(

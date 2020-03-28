@@ -3,6 +3,9 @@ import 'package:huffmancalculator/InputTextField.dart';
 import 'package:huffmancalculator/Theme.dart';
 
 class DecodePage extends StatelessWidget {
+  static final InputTextField codedText = new InputTextField();
+  static final InputTextField charactersCodes = new InputTextField();
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -18,18 +21,18 @@ class DecodePage extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: InputTextField(),
+              child: codedText,
             ),
           ),
           Text(
-            "Enter character codes below",
+            "Insert characters' codes below",
             style: TextStyle(color: getThemeData().accentColor),
           ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(
                   top: 8.0, left: 8.0, right: 8.0, bottom: 35.0),
-              child: InputTextField(),
+              child: charactersCodes,
             ),
           ),
         ],

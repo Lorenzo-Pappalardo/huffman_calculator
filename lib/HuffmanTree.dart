@@ -106,7 +106,7 @@ class HuffmanTree {
     _res = '';
     for (Pair tmp in _pairs) {
       if (tmp.getCharacter() != '\0') {
-        _res += tmp.getCharacter() + ":   " + tmp.getCode();
+        _res += tmp.getCharacter() + ": " + tmp.getCode();
         if (tmp != _pairs.last)
           _res += '\n';
       }

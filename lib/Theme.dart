@@ -5,5 +5,6 @@ ThemeData getThemeData() {
     backgroundColor: Colors.grey[800],
     primaryColor: Colors.grey[900],
     accentColor: Colors.green[600],
+    errorColor: Colors.red,
   );
 }
