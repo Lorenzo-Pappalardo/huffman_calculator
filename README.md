@@ -3,6 +3,8 @@
 
 ## An app that calculates Huffman Code from user-inserted text and viceversa
 
+![Huffman_Calculator.png](attachment:Huffman_Calculator.png)
+
 The app is build using [Flutter](https://flutter.dev/) framework and it consists of two different main pages: EncodePage and DecodePage. Each of them launches a ResultPage which does exactly what you think it does: showing the resut of the selected computation. Both pages feature a BottomAppBar widget and FAB(FloatingActionButton) widget. The former is used to switch between the pages and the latter serves the only purpose of making the magic happen!
 
 ### Encode Page
