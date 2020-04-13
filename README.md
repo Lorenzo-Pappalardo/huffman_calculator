@@ -14,6 +14,10 @@ When the user has finished writing the text for which he or she wants to calcula
 
 This is the second and last page that is present in the app. It is the opposite of the EncodePage, in fact it restores the original text, based on the encoded text and the characters codes. The page is divided in two sections contained in a Column widget. The first section consists of a TextField, which should contain the encoded text, while the second consists of another TextField which should contain the characters codes. Once the user has filled both of them, he or she can press the FAB that opens up the Result page, showing the original text. Here, too, there is a FlatButton which makes it easy to copy the text.
 
+## Purpose
+
+Aside from being a personal experiment, I conceived the app as a tool for sending encrypted messages that could only be decrypted by who I chose to send the codes to.
+
 ## Final notes
 
 This has been both my first attempt to create an app and the first time using Flutter framework, so I encourage you to improve the app and to make me know if there's something that you would have done in another way. I apologize if some of the more experienced programmers out there are unhappy (to say the least) with of the app is conceived and built, I'm open to suggestions.
